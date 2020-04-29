@@ -2,9 +2,12 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {}
+index = {"Annotation": "04_data.core.ipynb",
+         "from_mask": "04_data.core.ipynb",
+         "Mask": "04_data.core.ipynb",
+         "from_pilmask": "04_data.core.ipynb"}
 
-modules = []
+modules = ["data/core.py"]
 
 doc_url = "https://lgvaz.github.io/mantisshrimp/"
 
