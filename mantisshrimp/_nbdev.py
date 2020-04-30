@@ -5,11 +5,11 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 index = {"detect_batch_to_samples": "03_data.load.ipynb",
          "DetectDataLoader": "03_data.load.ipynb",
          "Annotation": "04_data.core.ipynb",
+         "encodes": "04_data.core.ipynb",
          "area": "04_data.core.ipynb",
          "from_mask": "04_data.core.ipynb",
-         "Mask": "04_data.core.ipynb",
-         "from_pilmask": "04_data.core.ipynb",
-         "create": "04_data.core.ipynb"}
+         "PILMaskBinary": "04_data.core.ipynb",
+         "TensorMaskBinary": "04_data.core.ipynb"}
 
 modules = ["data/load.py",
            "data/core.py"]
