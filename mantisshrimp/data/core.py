@@ -44,8 +44,9 @@ def area(self:TensorBBox):
 def from_mask(cls:TensorBBox, mask):
     boxes = []
     for m in mask:
-        xs,ys = m.nonzero().T
-        boxes.append([min(ys),min(xs),max(ys),max(xs)])
+        v = m.nonzero().T
+        vmin,vmax = v.min(1)[0].tolist(),v.max(1)[0].tolist()
+        boxes.append([*vmin[::-1], *vmax[::-1]])
     return cls(boxes)
 
 # Cell
