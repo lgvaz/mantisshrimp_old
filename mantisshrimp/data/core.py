@@ -23,6 +23,7 @@ class Annotation:
     def __contains__(self, k): return k in self.d
     def __repr__(self): return self.d.__repr__()
     def to_tensor(self): return type(self)(**{k:ToTensor()(v) for k,v in self.d.items()})
+    def to_device(self, device): return type(self)(**{k:to_device(v) for k,v in self.d.items()})
     def show(self, ctx, **kwargs):
         for o in self.d.values(): ctx = getattr(o,'show',noop)(ctx, **kwargs)
         return ctx
@@ -55,7 +56,7 @@ class PILMaskBinary(PILMask):
 # Cell
 class TensorMaskBinary(TensorMask):
     def show(self, ctx=None, **kwargs):
-        mask = (self * torch.arange(1,len(self)+1).view(-1,1,1)).sum(0)
+        mask = (self * torch.arange(1,len(self)+1).to(self.device).view(-1,1,1)).sum(0)
         return TensorMask(mask).show(ctx, **kwargs)
 
 # Cell
