@@ -2,12 +2,17 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"Annotation": "04_data.core.ipynb",
+index = {"detect_batch_to_samples": "03_data.load.ipynb",
+         "DetectDataLoader": "03_data.load.ipynb",
+         "Annotation": "04_data.core.ipynb",
+         "area": "04_data.core.ipynb",
          "from_mask": "04_data.core.ipynb",
          "Mask": "04_data.core.ipynb",
-         "from_pilmask": "04_data.core.ipynb"}
+         "from_pilmask": "04_data.core.ipynb",
+         "create": "04_data.core.ipynb"}
 
-modules = ["data/core.py"]
+modules = ["data/load.py",
+           "data/core.py"]
 
 doc_url = "https://lgvaz.github.io/mantisshrimp/"
 
