@@ -17,10 +17,16 @@ index = {"Bucket": "03_data.load.ipynb",
          "from_mask": "04_data.core.ipynb",
          "PILMaskBinary": "04_data.core.ipynb",
          "TensorMaskBinary": "04_data.core.ipynb",
-         "GatherPredsCallback.all_tensors": "04_data.core.ipynb"}
+         "GatherPredsCallback.all_tensors": "04_data.core.ipynb",
+         "RCNNCallback": "06_callback.ipynb",
+         "rcnn_splitter": "08_learner.ipynb",
+         "mock_loss": "08_learner.ipynb",
+         "mask_rcnn_learner": "08_learner.ipynb"}
 
 modules = ["data/load.py",
-           "data/core.py"]
+           "data/core.py",
+           "callback.py",
+           "learner.py"]
 
 doc_url = "https://lgvaz.github.io/mantisshrimp/"
 
