@@ -2,8 +2,12 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"detect_batch_to_samples": "03_data.load.ipynb",
+index = {"Bucket": "03_data.load.ipynb",
+         "create_bucket": "03_data.load.ipynb",
+         "bucketify": "03_data.load.ipynb",
+         "detect_batch_to_samples": "03_data.load.ipynb",
          "DetectDataLoader": "03_data.load.ipynb",
+         "old_do_call": "03_data.load.ipynb",
          "Annotation": "04_data.core.ipynb",
          "encodes": "04_data.core.ipynb",
          "area": "04_data.core.ipynb",

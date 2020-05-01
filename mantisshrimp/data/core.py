@@ -11,11 +11,11 @@ from fastai2.vision.all import *
 # Does it needed to be converted to TensorAnnotation?
 # Why is area being converted to BBox??
 class Annotation:
-    keys = 'labels,boxes,area,masks,iscrowd'.split(',') # TODO: Auto insert key in create and d
+    keys = 'labels,boxes,area,masks,iscrowd,scores'.split(',') # TODO: Auto insert key in create and d
 #     @classmethod
-    def __init__(self, labels=None, boxes=None, masks=None, iscrowd=0, area=None):
+    def __init__(self, labels=None, boxes=None, masks=None, iscrowd=0, area=None, scores=None):
         area = boxes.area if (boxes is not None and area is None) else area
-        self.d = dict(labels=labels,boxes=boxes,area=area,masks=masks,iscrowd=iscrowd)
+        self.d = dict(labels=labels,boxes=boxes,area=area,masks=masks,iscrowd=iscrowd,scores=scores)
 #     @property
 #     def d(self): return {k:v for k,v in zip(self.keys,self)}
     def __getitem__(self, name): return self.d.__getitem__(name)
@@ -27,6 +27,14 @@ class Annotation:
     def show(self, ctx, **kwargs):
         for o in self.d.values(): ctx = getattr(o,'show',noop)(ctx, **kwargs)
         return ctx
+
+    @classmethod
+    def from_dict(cls, d):
+        boxes = d.pop('boxes', None)
+        masks = d.pop('masks', None)
+        if boxes is not None: boxes = TensorBBox(boxes)
+        if masks is not None: masks = TensorMaskBinary(masks)
+        return cls(boxes=boxes, masks=masks, **d)
 
 # Cell
 @ToTensor
@@ -57,7 +65,7 @@ class PILMaskBinary(PILMask):
 # Cell
 class TensorMaskBinary(TensorMask):
     def show(self, ctx=None, **kwargs):
-        mask = (self * torch.arange(1,len(self)+1).to(self.device).view(-1,1,1)).sum(0)
+        mask = (self.squeeze() * torch.arange(1,len(self)+1).to(self.device).view(-1,1,1)).sum(0)
         return TensorMask(mask).show(ctx, **kwargs)
 
 # Cell
