@@ -3,7 +3,8 @@
 __all__ = ['Annotation', 'encodes', 'area', 'from_mask', 'PILMaskBinary', 'TensorMaskBinary', 'encodes']
 
 # Cell
-from fastai2.vision.all import *
+from ..all import *
+from .load import Bucket # TODO: Fix imports
 
 # Cell
 # Might be better to custom dispatch annotation, because of recursive tuple problem
@@ -74,6 +75,16 @@ def encodes(self, o:PILMaskBinary):
     mask_arr = np.array(o)
     obj_ids = np.unique(mask_arr)[1:] # TODO: Hardcoded removal
     return TensorMaskBinary(mask_arr==obj_ids[:,None,None])
+
+# Cell
+_old_all_tensors = GatherPredsCallback.all_tensors
+@patch
+def all_tensors(self:GatherPredsCallback):
+    res = _old_all_tensors(self)
+    if not self.save_preds:
+        pred_i = 1 if self.with_input else 0
+        res[pred_i] = Bucket((Annotation.from_dict(res[pred_i]),))
+    return res
 
 # Cell
 @typedispatch
