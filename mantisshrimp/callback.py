@@ -10,7 +10,7 @@ class RCNNCallback(Callback):
     def begin_batch(self):
         if self.inference: return
         assert len(self.xb)==len(self.yb)==1, 'Only works for single input-output'
-        self.learn.xb = (self.xb[0], self.yb[0].tolist())
+        self.learn.xb = (self.xb[0], list(self.yb[0]))
     def after_loss(self):
         if self.inference: return
         if not self.training: return # TODO: https://github.com/lgvaz/mantisshrimp/issues/1
